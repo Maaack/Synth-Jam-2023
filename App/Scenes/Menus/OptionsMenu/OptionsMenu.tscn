@@ -22,6 +22,7 @@ theme_override_constants/separation = 8
 alignment = 1
 script = ExtResource("2")
 audio_control_scene = ExtResource("2_xrxr1")
+hide_busses = Array[String](["arlez80"])
 
 [node name="AudioControlContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -54,5 +55,6 @@ text = "Fullscreen :"
 [node name="FullscreenButton" type="CheckButton" parent="FullscreenControl"]
 layout_mode = 2
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="toggled" from="MuteControl/MuteButton" to="." method="_on_mute_button_toggled"]
 [connection signal="toggled" from="FullscreenControl/FullscreenButton" to="." method="_on_fullscreen_button_toggled"]
