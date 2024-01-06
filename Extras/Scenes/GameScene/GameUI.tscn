@@ -21,4 +21,4 @@ pause_menu_packed = ExtResource("3_n6jen")
 [node name="GodotMIDIPlayer" type="Node" parent="."]
 script = ExtResource("7_5ep6s")
 soundfont = "res://Assets/Sourced/chorium.sf2"
-bus = &"SFX"
+bus = &"MIDI"
