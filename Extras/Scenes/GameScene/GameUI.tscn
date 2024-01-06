@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxkq10mmjl517"]
+
+[ext_resource type="Script" path="res://Extras/Scenes/GameScene/GameUI.gd" id="1_vn54u"]
+[ext_resource type="Script" path="res://App/Scripts/PauseMenuController.gd" id="2_bmhjc"]
+[ext_resource type="PackedScene" uid="uid://dtdpd6o5xj4dq" path="res://Extras/Scenes/Menus/PauseMenu/PauseMenu.tscn" id="3_n6jen"]
+[ext_resource type="Script" path="res://addons/midi/MidiPlayer.gd" id="7_5ep6s"]
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vn54u")
+
+[node name="PauseMenuController" type="Node" parent="."]
+script = ExtResource("2_bmhjc")
+pause_menu_packed = ExtResource("3_n6jen")
+
+[node name="GodotMIDIPlayer" type="Node" parent="."]
+script = ExtResource("7_5ep6s")
+soundfont = "res://Assets/Sourced/chorium.sf2"
+bus = &"SFX"

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtdpd6o5xj4dq"]
+
+[ext_resource type="PackedScene" uid="uid://cdwvtbtwmrqbn" path="res://App/Scenes/Menus/PauseMenu/PauseMenu.tscn" id="1_wyugv"]
+[ext_resource type="PackedScene" uid="uid://vh1ucj2rfbby" path="res://App/Scenes/Menus/OptionsMenu/OptionsMenu.tscn" id="2_suear"]
+
+[node name="PauseMenu" instance=ExtResource("1_wyugv")]
+options_packed_scene = ExtResource("2_suear")
+main_menu_scene = "res://Extras/Scenes/Menus/MainMenu/MainMenu.tscn"
