@@ -6,3 +6,10 @@
 [node name="MainMenu" instance=ExtResource("1_y2dvq")]
 script = ExtResource("1_yww1j")
 game_scene_path = "res://Extras/Scenes/GameScene/GameUI.tscn"
+version_name = "0.1.0"
+
+[node name="Title" parent="MarginContainer/VBoxContainer/TitlesMargin/TitlesContainer" index="0"]
+text = "Godot MIDI Keyboard"
+
+[node name="SubTitle" parent="MarginContainer/VBoxContainer/TitlesMargin/TitlesContainer" index="1"]
+text = "Synth Jam 2023-2024 Edition"
