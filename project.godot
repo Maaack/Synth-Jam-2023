@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Synth Jam 2023"
+config/name="Godot MIDI Keyboard"
 run/main_scene="res://Extras/Scenes/InitApp/InitApp.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
