@@ -6,3 +6,6 @@
 [node name="PauseMenu" instance=ExtResource("1_wyugv")]
 options_packed_scene = ExtResource("2_suear")
 main_menu_scene = "res://Extras/Scenes/Menus/MainMenu/MainMenu.tscn"
+
+[node name="RestartButton" parent="Control/MenuContainer/VBoxContainer/MenuButtons" index="1"]
+visible = false
