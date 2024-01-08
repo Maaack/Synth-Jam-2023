@@ -1,3 +1,65 @@
-[gd_resource type="Theme" format=3 uid="uid://jwkuxill0lfa"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://jwkuxill0lfa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vd4xi"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bxmfm"]
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhhfd"]
+bg_color = Color(0.054902, 0.054902, 0.054902, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0ud6"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkil6"]
+bg_color = Color(0.929412, 0.929412, 0.929412, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37mhl"]
+bg_color = Color(0.843137, 0.843137, 0.843137, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [resource]
+BlackKey/base_type = &"Button"
+BlackKey/styles/hover = SubResource("StyleBoxFlat_vd4xi")
+BlackKey/styles/normal = SubResource("StyleBoxFlat_bxmfm")
+BlackKey/styles/pressed = SubResource("StyleBoxFlat_hhhfd")
+WhiteKey/base_type = &"Button"
+WhiteKey/styles/hover = SubResource("StyleBoxFlat_g0ud6")
+WhiteKey/styles/normal = SubResource("StyleBoxFlat_tkil6")
+WhiteKey/styles/pressed = SubResource("StyleBoxFlat_37mhl")
