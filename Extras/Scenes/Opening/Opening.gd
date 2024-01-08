@@ -6,12 +6,7 @@ extends Control
 @export var end_delay : float = 0.5
 
 func next():
-	var status = SceneLoader.get_status()
-	if status == ResourceLoader.THREAD_LOAD_LOADED:
-		var packed_scene = SceneLoader.get_resource()
-		get_tree().change_scene_to_packed(packed_scene)
-	else:
-		SceneLoader.show_loading_screen()
+	SceneLoader._change_scene_to_loading_screen()
 
 func _add_textures_to_container(textures : Array[Texture2D]):
 	for texture in textures:

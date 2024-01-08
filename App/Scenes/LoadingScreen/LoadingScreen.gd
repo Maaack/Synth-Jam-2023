@@ -29,9 +29,10 @@ func _set_loading_complete():
 	if _loading_complete:
 		return
 	_loading_complete = true
-	call_deferred("_load_next_scene")
 
 func _process(_delta):
+	if _loading_complete:
+		call_deferred("_load_next_scene")
 	var status = SceneLoader.get_status()
 	match(status):
 		ResourceLoader.THREAD_LOAD_IN_PROGRESS:
