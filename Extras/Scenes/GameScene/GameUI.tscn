@@ -13,6 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vn54u")
+starting_note = 48
 
 [node name="PauseMenuController" type="Node" parent="."]
 script = ExtResource("2_bmhjc")
@@ -22,3 +23,209 @@ pause_menu_packed = ExtResource("3_n6jen")
 script = ExtResource("7_5ep6s")
 soundfont = "res://Assets/Sourced/chorium.sf2"
 bus = &"MIDI"
+
+[node name="WhiteKeys" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button2" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button3" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button4" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button5" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button6" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button7" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button8" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button9" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button10" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button11" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button12" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button13" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button14" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="Button15" type="Button" parent="WhiteKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"WhiteKey"
+
+[node name="BlackKeys" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1220, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_right = 28.0
+offset_bottom = -303.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 30
+
+[node name="Spacer" type="Control" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Button2" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Spacer2" type="Control" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Button3" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Button4" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Button5" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Spacer3" type="Control" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Button6" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Button7" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Spacer4" type="Control" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Button8" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Button9" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Button10" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
+
+[node name="Spacer5" type="Control" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Button11" type="Button" parent="BlackKeys"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BlackKey"
