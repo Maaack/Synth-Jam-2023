@@ -34,7 +34,7 @@ func _input(event):
 	elif event is InputEventMIDI:
 		$GodotMIDIPlayer.receive_raw_midi_message(event)
 
-func _on_mouse_entered_play_note(note : int) -> void:
+func _on_note_played(note : int) -> void:
 	var midi_event : InputEventMIDI = InputEventMIDI.new()
 	midi_event.message = MIDI_MESSAGE_NOTE_ON
 	midi_event.pitch = note
@@ -57,7 +57,8 @@ func _attach_keys():
 			BLACK_KEY:
 				current_key = black_keys.pop_front()
 		var key_note : int = starting_note + iter
-		current_key.connect(&"mouse_entered", _on_mouse_entered_play_note.bind(key_note))
+		current_key.connect(&"mouse_entered", _on_note_played.bind(key_note))
+		current_key.connect(&"button_down", _on_note_played.bind(key_note))
 
 func _ready():
 	InGameMenuController.scene_tree = get_tree()
