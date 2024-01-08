@@ -39,7 +39,6 @@ func _on_note_played(note : int) -> void:
 	midi_event.message = MIDI_MESSAGE_NOTE_ON
 	midi_event.pitch = note
 	midi_event.velocity = 0x6E # 110
-	midi_event.instrument = 26
 	$GodotMIDIPlayer.receive_raw_midi_message(midi_event)
 
 func _attach_keys():
