@@ -3,8 +3,8 @@ extends Control
 
 @export var starting_note : int = 56
 @onready var action_names = AppSettings.get_filtered_action_names()
-@onready var white_keys = %WhiteKeys
-@onready var black_keys = %BlackKeys
+@onready var white_keys_container = %WhiteKeys
+@onready var black_keys_container = %BlackKeys
 
 const WHITE_KEY := "WHITE_KEY"
 const BLACK_KEY := "BLACK_KEY"
@@ -43,8 +43,8 @@ func _on_mouse_entered_play_note(note : int) -> void:
 	$GodotMIDIPlayer.receive_raw_midi_message(midi_event)
 
 func _attach_keys():
-	var white_keys := $WhiteKeys.get_children()
-	var black_keys := $BlackKeys.find_children("", "Button")
+	var white_keys := white_keys_container.get_children()
+	var black_keys := black_keys_container.find_children("", "Button")
 	var total_keys = white_keys.size() + black_keys.size()
 	var note_offset = (starting_note - LOW_A_MIDI_NOTE)% 12 
 	for iter in total_keys:
