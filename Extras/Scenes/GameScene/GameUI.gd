@@ -5,6 +5,9 @@ extends Control
 @onready var action_names = AppSettings.get_filtered_action_names()
 @onready var white_keys_container = %WhiteKeys
 @onready var black_keys_container = %BlackKeys
+@onready var device_list_label = %DeviceList
+@onready var device_connected_option = %DeviceConnected
+@onready var device_list_animation = %DeviceListAnimationPlayer
 
 const WHITE_KEY := "WHITE_KEY"
 const BLACK_KEY := "BLACK_KEY"
@@ -23,6 +26,9 @@ const OCTAVE_KEYS := [
 	WHITE_KEY,
 	BLACK_KEY,
 ]
+
+var _connected_midi_devices : PackedStringArray
+var _real_connected_midi_devices : Array[String]
 
 func _input(event):
 	if event is InputEventKey and event.is_pressed():
@@ -59,6 +65,35 @@ func _attach_keys():
 		current_key.connect(&"mouse_entered", _on_note_played.bind(key_note))
 		current_key.connect(&"button_down", _on_note_played.bind(key_note))
 
+func _detect_MIDI_devices():
+	_connected_midi_devices = OS.get_connected_midi_inputs()
+	_real_connected_midi_devices.clear()
+	var device_list_text = ""
+	for device in _connected_midi_devices:
+		if device == "Virtual RawMIDI":
+			continue
+		_real_connected_midi_devices.append(device)
+	device_list_text = "\n".join(_real_connected_midi_devices)
+	device_list_label.visible = device_list_text != ""
+	if device_list_label.text != device_list_text:
+		device_list_label.text = device_list_text
+		device_list_animation.play(&"FadeOut")
+	device_connected_option.button_pressed = _real_connected_midi_devices.size() > 0
+
 func _ready():
 	InGameMenuController.scene_tree = get_tree()
 	_attach_keys()
+	OS.open_midi_inputs()
+	_detect_MIDI_devices()
+
+func _on_check_midi_devices_timer_timeout():
+	_detect_MIDI_devices()
+
+func _on_panel_mouse_entered():
+	if not device_list_animation.is_playing():
+		device_list_animation.play(&"FadeIn")
+	else:
+		device_list_animation.play(&"RESET")
+
+func _on_panel_mouse_exited():
+	device_list_animation.play(&"FadeOut")
