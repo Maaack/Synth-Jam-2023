@@ -326,12 +326,6 @@ autoplay = "FadeOut"
 [node name="CheckMIDIDevicesTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="TestMIDITimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-autostart = true
-
 [connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
 [connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]
 [connection signal="timeout" from="CheckMIDIDevicesTimer" to="." method="_on_check_midi_devices_timer_timeout"]
-[connection signal="timeout" from="TestMIDITimer" to="." method="_on_test_midi_timer_timeout"]
