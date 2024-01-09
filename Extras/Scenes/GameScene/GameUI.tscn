@@ -1,9 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxkq10mmjl517"]
+[gd_scene load_steps=14 format=3 uid="uid://dxkq10mmjl517"]
 
 [ext_resource type="Script" path="res://Extras/Scenes/GameScene/GameUI.gd" id="1_vn54u"]
 [ext_resource type="Script" path="res://App/Scripts/PauseMenuController.gd" id="2_bmhjc"]
 [ext_resource type="PackedScene" uid="uid://dtdpd6o5xj4dq" path="res://Extras/Scenes/Menus/PauseMenu/PauseMenu.tscn" id="3_n6jen"]
+[ext_resource type="Script" path="res://Extras/Scenes/GameScene/AnimatedPanel.gd" id="5_8kjrn"]
 [ext_resource type="Script" path="res://addons/midi/MidiPlayer.gd" id="7_5ep6s"]
+
+[sub_resource type="Animation" id="Animation_nuxdy"]
+resource_name = "FadeIn"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_i584k"]
 resource_name = "FadeOut"
@@ -36,7 +53,45 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_nuxdy"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vxhyj"]
+_data = {
+"FadeIn": SubResource("Animation_nuxdy"),
+"FadeOut": SubResource("Animation_i584k"),
+"RESET": SubResource("Animation_aeyqt")
+}
+
+[sub_resource type="Animation" id="Animation_socdu"]
+resource_name = "FadeOut"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1od3d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wki6g"]
 resource_name = "FadeIn"
 length = 0.2
 tracks/0/type = "value"
@@ -52,11 +107,11 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vxhyj"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qg361"]
 _data = {
-"FadeIn": SubResource("Animation_nuxdy"),
-"FadeOut": SubResource("Animation_i584k"),
-"RESET": SubResource("Animation_aeyqt")
+"FadeIn": SubResource("Animation_wki6g"),
+"FadeOut": SubResource("Animation_socdu"),
+"RESET": SubResource("Animation_1od3d")
 }
 
 [node name="GameUI" type="Control"]
@@ -68,6 +123,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vn54u")
 starting_note = 48
+sample_midi = "res://Assets/Sourced/Beethoven-Moonlight-Sonata.mid"
 
 [node name="PauseMenuController" type="Node" parent="."]
 script = ExtResource("2_bmhjc")
@@ -284,7 +340,8 @@ size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="DeviceListPanel" type="PanelContainer" parent="." node_paths=PackedStringArray("animation_player")]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -292,18 +349,20 @@ anchor_bottom = 1.0
 offset_top = -43.0
 offset_right = 245.0
 grow_vertical = 0
+script = ExtResource("5_8kjrn")
+animation_player = NodePath("DeviceListAnimationPlayer")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="DeviceListPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DeviceListPanel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="DeviceConnected" type="CheckButton" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="DeviceConnected" type="CheckButton" parent="DeviceListPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
@@ -311,12 +370,12 @@ button_mask = 0
 text = "MIDI Device Detected"
 alignment = 1
 
-[node name="DeviceList" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="DeviceList" type="Label" parent="DeviceListPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="DeviceListAnimationPlayer" type="AnimationPlayer" parent="Panel"]
+[node name="DeviceListAnimationPlayer" type="AnimationPlayer" parent="DeviceListPanel"]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_vxhyj")
@@ -326,6 +385,93 @@ autoplay = "FadeOut"
 [node name="CheckMIDIDevicesTimer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
-[connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]
+[node name="MIDIFilePanel" type="PanelContainer" parent="." node_paths=PackedStringArray("animation_player")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -94.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("5_8kjrn")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="MarginContainer" type="MarginContainer" parent="MIDIFilePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MIDIFilePanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="WebNoticeLabel" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Loading MIDI files from your local drive is not availble on the web version."
+autowrap_mode = 2
+
+[node name="LoadSampleButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load Sample"
+
+[node name="LoadMIDIFileButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load MIDI File"
+
+[node name="LoadedMIDIFileLabel" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Play"
+
+[node name="StopPauseContainer" type="HBoxContainer" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="StopButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer/StopPauseContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stop"
+
+[node name="PauseButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer/StopPauseContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pause"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MIDIFilePanel"]
+libraries = {
+"": SubResource("AnimationLibrary_qg361")
+}
+autoplay = "FadeOut"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(617, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mid", "*.midi")
+
 [connection signal="timeout" from="CheckMIDIDevicesTimer" to="." method="_on_check_midi_devices_timer_timeout"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadSampleButton" to="." method="_on_load_sample_button_pressed"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadMIDIFileButton" to="." method="_on_load_midi_file_button_pressed"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/StopPauseContainer/StopButton" to="." method="_on_stop_button_pressed"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/StopPauseContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
