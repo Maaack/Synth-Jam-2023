@@ -3,6 +3,7 @@ extends Control
 
 @export var starting_note : int = 56
 @export_file("*.mid") var sample_midi : String
+@export var pressed_colors : Array[Color]
 @onready var action_names = AppSettings.get_filtered_action_names()
 @onready var white_keys_container = %WhiteKeys
 @onready var black_keys_container = %BlackKeys
@@ -38,16 +39,26 @@ const OCTAVE_KEYS := [
 var _connected_midi_devices : PackedStringArray
 var _real_connected_midi_devices : Array[String]
 var _paused_at : float = 0
+var _note_key_map : Dictionary = {}
+
+func _press_key_for_note(key_note : int, pressed : bool):
+	if _note_key_map.has(key_note):
+		var note_button : Button = _note_key_map[key_note]
+		note_button.set_pressed_no_signal(pressed)
 
 func _input(event):
-	if event is InputEventKey and event.is_pressed():
-		var midi_event : InputEventMIDI = InputEventMIDI.new()
-		midi_event.message = MIDI_MESSAGE_NOTE_ON
-		midi_event.pitch = event.keycode % 128
-		midi_event.velocity = 0x6E # 110
-		$GodotMIDIPlayer.receive_raw_midi_message(midi_event)
+	if event is InputEventKey:
+		var note : int = event.keycode % 128
+		if event.is_pressed() and not event.is_echo():
+			var midi_event : InputEventMIDI = InputEventMIDI.new()
+			midi_event.message = MIDI_MESSAGE_NOTE_ON
+			midi_event.pitch = note
+			midi_event.velocity = 0x6E # 110
+			$GodotMIDIPlayer.receive_raw_midi_message(midi_event)
+		_press_key_for_note(note, event.is_pressed())
 	elif event is InputEventMIDI:
 		$GodotMIDIPlayer.receive_raw_midi_message(event)
+		_press_key_for_note(event.pitch, event.message == MIDI_MESSAGE_NOTE_ON)
 
 func _on_note_played(note : int) -> void:
 	var midi_event : InputEventMIDI = InputEventMIDI.new()
@@ -56,7 +67,28 @@ func _on_note_played(note : int) -> void:
 	midi_event.velocity = 0x6E # 110
 	$GodotMIDIPlayer.receive_raw_midi_message(midi_event)
 
+func _on_note_released(key_button : Button) -> void:
+	key_button.set_pressed_no_signal(false)
+
+func _if_mouse_pressed_play_note(key_button : Button, note : int) -> void:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		key_button.set_pressed_no_signal(true)
+		_on_note_played(note)
+
+func _on_mouse_exited(key_button : Button):
+	key_button.set_pressed_no_signal(false)
+
+func _apply_color_for_pressed(key_button : Button, iter : int):
+	var color_iter : int = iter % pressed_colors.size()
+	var color : Color = pressed_colors[color_iter]
+	var stylebox : StyleBox = key_button.get_theme_stylebox(&"pressed")
+	if stylebox is StyleBoxFlat:
+		var stylebox_new : StyleBoxFlat = stylebox.duplicate()
+		stylebox_new.bg_color = color
+		key_button.add_theme_stylebox_override(&"pressed", stylebox_new)
+
 func _attach_keys():
+	_note_key_map.clear()
 	var white_keys := white_keys_container.get_children()
 	var black_keys := black_keys_container.find_children("", "Button")
 	var total_keys = white_keys.size() + black_keys.size()
@@ -71,8 +103,12 @@ func _attach_keys():
 			BLACK_KEY:
 				current_key = black_keys.pop_front()
 		var key_note : int = starting_note + iter
-		current_key.connect(&"mouse_entered", _on_note_played.bind(key_note))
+		current_key.connect(&"mouse_entered", _if_mouse_pressed_play_note.bind(current_key, key_note))
+		current_key.connect(&"mouse_exited", _on_mouse_exited.bind(current_key))
 		current_key.connect(&"button_down", _on_note_played.bind(key_note))
+		current_key.connect(&"button_up", _on_note_released.bind(current_key))
+		_note_key_map[key_note] = current_key
+		_apply_color_for_pressed(current_key, iter)
 
 func _detect_MIDI_devices():
 	_connected_midi_devices = OS.get_connected_midi_inputs()
@@ -145,3 +181,9 @@ func _on_load_sample_button_pressed():
 	$GodotMIDIPlayer.set_file(sample_midi)
 	$GodotMIDIPlayer.play()
 	_update_control_buttons()
+
+func _on_godot_midi_player_midi_event(channel, event):
+	if event is SMF.MIDIEventNoteOn:
+		_press_key_for_note(event.note, true)
+	if event is SMF.MIDIEventNoteOff:
+		_press_key_for_note(event.note, false)

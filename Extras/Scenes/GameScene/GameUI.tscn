@@ -60,6 +60,22 @@ _data = {
 "RESET": SubResource("Animation_aeyqt")
 }
 
+[sub_resource type="Animation" id="Animation_wki6g"]
+resource_name = "FadeIn"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_socdu"]
 resource_name = "FadeOut"
 length = 3.0
@@ -91,22 +107,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_wki6g"]
-resource_name = "FadeIn"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qg361"]
 _data = {
 "FadeIn": SubResource("Animation_wki6g"),
@@ -124,6 +124,7 @@ grow_vertical = 2
 script = ExtResource("1_vn54u")
 starting_note = 48
 sample_midi = "res://Assets/Sourced/Beethoven-Moonlight-Sonata.mid"
+pressed_colors = Array[Color]([Color(0.329412, 0.278431, 0.54902, 1), Color(0.172549, 0.411765, 0.603922, 1), Color(0.0156863, 0.545098, 0.658824, 1), Color(0.0509804, 0.701961, 0.619608, 1), Color(0.0862745, 0.858824, 0.576471, 1), Color(0.513726, 0.890196, 0.466667, 1), Color(0.72549, 0.905882, 0.411765, 1), Color(0.937255, 0.917647, 0.352941, 1), Color(0.945098, 0.768627, 0.32549, 1), Color(0.94902, 0.619608, 0.298039, 1), Color(0.921569, 0.352941, 0.580392, 1), Color(0.717647, 0.372549, 0.756863, 1)])
 
 [node name="PauseMenuController" type="Node" parent="."]
 script = ExtResource("2_bmhjc")
@@ -149,90 +150,105 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button2" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button3" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button4" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button5" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button6" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button7" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button8" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button9" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button10" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button11" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button12" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button13" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button14" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="Button15" type="Button" parent="WhiteKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"WhiteKey"
+toggle_mode = true
 
 [node name="BlackKeys" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -259,12 +275,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Button2" type="Button" parent="BlackKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Spacer2" type="Control" parent="BlackKeys"]
 layout_mode = 2
@@ -276,18 +294,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Button4" type="Button" parent="BlackKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Button5" type="Button" parent="BlackKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Spacer3" type="Control" parent="BlackKeys"]
 layout_mode = 2
@@ -299,12 +320,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Button7" type="Button" parent="BlackKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Spacer4" type="Control" parent="BlackKeys"]
 layout_mode = 2
@@ -316,18 +339,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Button9" type="Button" parent="BlackKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Button10" type="Button" parent="BlackKeys"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="Spacer5" type="Control" parent="BlackKeys"]
 layout_mode = 2
@@ -339,6 +365,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 theme_type_variation = &"BlackKey"
+toggle_mode = true
 
 [node name="DeviceListPanel" type="PanelContainer" parent="." node_paths=PackedStringArray("animation_player")]
 unique_name_in_owner = true
@@ -475,6 +502,7 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.mid", "*.midi")
 
+[connection signal="midi_event" from="GodotMIDIPlayer" to="." method="_on_godot_midi_player_midi_event"]
 [connection signal="timeout" from="CheckMIDIDevicesTimer" to="." method="_on_check_midi_devices_timer_timeout"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadSampleButton" to="." method="_on_load_sample_button_pressed"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadMIDIFileButton" to="." method="_on_load_midi_file_button_pressed"]
