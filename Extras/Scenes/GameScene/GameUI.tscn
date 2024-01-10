@@ -370,6 +370,14 @@ button_mask = 0
 text = "MIDI Device Detected"
 alignment = 1
 
+[node name="WebNoticeLabel2" type="Label" parent="DeviceListPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Detecting MIDI devices is not availble on the web version."
+autowrap_mode = 2
+
 [node name="DeviceList" type="Label" parent="DeviceListPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
@@ -383,7 +391,6 @@ libraries = {
 autoplay = "FadeOut"
 
 [node name="CheckMIDIDevicesTimer" type="Timer" parent="."]
-autostart = true
 
 [node name="MIDIFilePanel" type="PanelContainer" parent="." node_paths=PackedStringArray("animation_player")]
 layout_mode = 1
@@ -410,6 +417,11 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 theme_override_constants/separation = 8
 
+[node name="LoadSampleButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load Sample"
+
 [node name="WebNoticeLabel" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
@@ -417,11 +429,6 @@ custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 text = "Loading MIDI files from your local drive is not availble on the web version."
 autowrap_mode = 2
-
-[node name="LoadSampleButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Load Sample"
 
 [node name="LoadMIDIFileButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

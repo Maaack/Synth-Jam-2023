@@ -10,6 +10,7 @@ extends Control
 @onready var device_list_label = %DeviceList
 @onready var device_connected_option = %DeviceConnected
 @onready var web_notice = %WebNoticeLabel
+@onready var web_notice_2 = %WebNoticeLabel2
 @onready var load_midi_button = %LoadMIDIFileButton
 @onready var loaded_midi_label = %LoadedMIDIFileLabel
 @onready var play_button = %PlayButton
@@ -91,14 +92,19 @@ func _detect_MIDI_devices():
 func _ready():
 	InGameMenuController.scene_tree = get_tree()
 	_attach_keys()
-	OS.open_midi_inputs()
-	_detect_MIDI_devices()
 	load_sample_button.visible = !sample_midi.is_empty()
 	if OS.has_feature("web"):
 		web_notice.show()
+		web_notice_2.show()
 		load_midi_button.hide()
-		
+	else:
+		OS.open_midi_inputs()
+		_detect_MIDI_devices()
+		$CheckMIDIDevicesTimer.start()
+
 func _on_check_midi_devices_timer_timeout():
+	if OS.has_feature("web"):
+		return
 	_detect_MIDI_devices()
 
 func _update_control_buttons():
