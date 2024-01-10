@@ -8,6 +8,7 @@ The application should detect connected MIDI devices and read their output. It c
 [Try it on itch.io](https://maaack.itch.io/godot-midi-keyboard)
 
 ![Opening](/Media/Screenshot-1.png)  
+![Load MIDI](/Media/Screenshot-2.png)  
 ![Play Controls](/Media/Screenshot-3.png)  
 ![Rainbow Keys](/Media/Screenshot-4.png)  
   
