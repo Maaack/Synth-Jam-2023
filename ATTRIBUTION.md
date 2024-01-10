@@ -1,8 +1,6 @@
 # Attribution
-## Collaborators
-
-### Created by
-Maaack
+## Created By
+[Maaack](https://maaack.itch.io/)
 
 ## Sourced / Unaffiliated
 ### Plugins
@@ -13,9 +11,14 @@ License: [Custom License](https://bitbucket.org/arlez80/godot-midi-player-g4/src
 
 ### Soundfont
 #### Chorium
-
 Author: openworld  
 Source: [pistonsoft : soundfonts.html](https://www.pistonsoft.com/soundfonts.html)  
+License: Free License
+
+### MIDI sample
+#### Moonlight Sonata
+Author: Ludwig van Beethoven  
+Source: [bitmidi : beethoven-moonlight-sonata-mid](https://bitmidi.com/beethoven-moonlight-sonata-mid)  
 License: Free License
 
 ## Tools
