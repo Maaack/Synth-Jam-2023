@@ -446,6 +446,7 @@ theme_override_constants/separation = 8
 [node name="LoadSampleButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 text = "Load Sample"
 
 [node name="WebNoticeLabel" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
@@ -459,6 +460,7 @@ autowrap_mode = 2
 [node name="LoadMIDIFileButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 text = "Load MIDI File"
 
 [node name="LoadedMIDIFileLabel" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
@@ -466,26 +468,73 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+[node name="PlayControlContainer" type="VBoxContainer" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 1
 text = "Play"
 
-[node name="StopPauseContainer" type="HBoxContainer" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+[node name="StopPauseContainer" type="HBoxContainer" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="StopButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer/StopPauseContainer"]
+[node name="StopButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/StopPauseContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Stop"
 
-[node name="PauseButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer/StopPauseContainer"]
+[node name="PauseButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/StopPauseContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Pause"
+
+[node name="TempoSlider" type="HSlider" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+max_value = 240.0
+value = 120.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BPM"
+
+[node name="Label" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "30"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "60"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "120"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "240"
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MIDIFilePanel"]
 libraries = {
@@ -501,11 +550,13 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.mid", "*.midi")
 
+[connection signal="changed_tempo" from="GodotMIDIPlayer" to="." method="_on_godot_midi_player_changed_tempo"]
 [connection signal="midi_event" from="GodotMIDIPlayer" to="." method="_on_godot_midi_player_midi_event"]
 [connection signal="timeout" from="CheckMIDIDevicesTimer" to="." method="_on_check_midi_devices_timer_timeout"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadSampleButton" to="." method="_on_load_sample_button_pressed"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadMIDIFileButton" to="." method="_on_load_midi_file_button_pressed"]
-[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/StopPauseContainer/StopButton" to="." method="_on_stop_button_pressed"]
-[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/StopPauseContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/StopPauseContainer/StopButton" to="." method="_on_stop_button_pressed"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/StopPauseContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="value_changed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/TempoSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

@@ -14,9 +14,11 @@ extends Control
 @onready var web_notice_2 = %WebNoticeLabel2
 @onready var load_midi_button = %LoadMIDIFileButton
 @onready var loaded_midi_label = %LoadedMIDIFileLabel
+@onready var play_control_container = %PlayControlContainer
 @onready var play_button = %PlayButton
 @onready var stop_pause_container = %StopPauseContainer
 @onready var load_sample_button = %LoadSampleButton
+@onready var tempo_slider = %TempoSlider
 
 const WHITE_KEY := "WHITE_KEY"
 const BLACK_KEY := "BLACK_KEY"
@@ -175,6 +177,7 @@ func _on_check_midi_devices_timer_timeout():
 	_detect_MIDI_devices()
 
 func _update_control_buttons():
+	play_control_container.visible = $GodotMIDIPlayer.file != ""
 	play_button.visible = !$GodotMIDIPlayer.playing
 	stop_pause_container.visible = $GodotMIDIPlayer.playing
 	load_sample_button.visible = !$GodotMIDIPlayer.playing and !sample_midi.is_empty() and $GodotMIDIPlayer.file != sample_midi
@@ -213,8 +216,15 @@ func _on_load_sample_button_pressed():
 	$GodotMIDIPlayer.play()
 	_update_control_buttons()
 
+func _on_h_slider_value_changed(value):
+	$GodotMIDIPlayer.set_tempo(value)
+
 func _on_godot_midi_player_midi_event(channel, event):
 	if event is SMF.MIDIEventNoteOn:
 		_press_key_for_note(event.note, true)
 	if event is SMF.MIDIEventNoteOff:
 		_press_key_for_note(event.note, false)
+
+func _on_godot_midi_player_changed_tempo(tempo):
+	if tempo_slider.value != tempo:
+		tempo_slider.value = tempo
