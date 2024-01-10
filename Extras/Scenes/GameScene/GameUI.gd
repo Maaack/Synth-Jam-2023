@@ -1,7 +1,7 @@
 extends Control
 
 
-@export var starting_note : int = 56
+@export var starting_note : int = 48
 @export_file("*.mid") var sample_midi : String
 @export var pressed_colors : Array[Color]
 @onready var action_names = AppSettings.get_filtered_action_names()
@@ -36,6 +36,34 @@ const OCTAVE_KEYS := [
 	BLACK_KEY,
 ]
 
+const INPUT_NOTE_MAP : Dictionary = {
+	&"C3": 48,
+	&"C#3": 49,
+	&"D3": 50,
+	&"D#3": 51,
+	&"E3": 52,
+	&"F3": 53,
+	&"F#3": 54,
+	&"G3": 55,
+	&"G#3": 56,
+	&"A3": 57,
+	&"A#3": 58,
+	&"B3": 59,
+	&"C4": 60,
+	&"C#4": 61,
+	&"D4": 62,
+	&"D#4": 63,
+	&"E4": 64,
+	&"F4": 65,
+	&"F#4": 66,
+	&"G4": 67,
+	&"G#4": 68,
+	&"A4": 69,
+	&"A#4": 70,
+	&"B4": 71,
+	&"C5": 72,
+}
+
 var _connected_midi_devices : PackedStringArray
 var _real_connected_midi_devices : Array[String]
 var _paused_at : float = 0
@@ -48,14 +76,17 @@ func _press_key_for_note(key_note : int, pressed : bool):
 
 func _input(event):
 	if event is InputEventKey:
-		var note : int = event.keycode % 128
-		if event.is_pressed() and not event.is_echo():
-			var midi_event : InputEventMIDI = InputEventMIDI.new()
-			midi_event.message = MIDI_MESSAGE_NOTE_ON
-			midi_event.pitch = note
-			midi_event.velocity = 0x6E # 110
-			$GodotMIDIPlayer.receive_raw_midi_message(midi_event)
-		_press_key_for_note(note, event.is_pressed())
+		var pressed_notes : Array = []
+		for action_name in INPUT_NOTE_MAP.keys():
+			if event.is_action(action_name):
+				var note : int = INPUT_NOTE_MAP[action_name]
+				if event.is_pressed() and not event.is_echo():
+					var midi_event : InputEventMIDI = InputEventMIDI.new()
+					midi_event.message = MIDI_MESSAGE_NOTE_ON
+					midi_event.pitch = note
+					midi_event.velocity = 0x6E # 110
+					$GodotMIDIPlayer.receive_raw_midi_message(midi_event)
+				_press_key_for_note(note, event.is_pressed())
 	elif event is InputEventMIDI:
 		$GodotMIDIPlayer.receive_raw_midi_message(event)
 		_press_key_for_note(event.pitch, event.message == MIDI_MESSAGE_NOTE_ON)

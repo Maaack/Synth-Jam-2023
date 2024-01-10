@@ -122,7 +122,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vn54u")
-starting_note = 48
 sample_midi = "res://Assets/Sourced/Beethoven-Moonlight-Sonata.mid"
 pressed_colors = Array[Color]([Color(0.329412, 0.278431, 0.54902, 1), Color(0.172549, 0.411765, 0.603922, 1), Color(0.0156863, 0.545098, 0.658824, 1), Color(0.0509804, 0.701961, 0.619608, 1), Color(0.0862745, 0.858824, 0.576471, 1), Color(0.513726, 0.890196, 0.466667, 1), Color(0.72549, 0.905882, 0.411765, 1), Color(0.937255, 0.917647, 0.352941, 1), Color(0.945098, 0.768627, 0.32549, 1), Color(0.94902, 0.619608, 0.298039, 1), Color(0.921569, 0.352941, 0.580392, 1), Color(0.717647, 0.372549, 0.756863, 1)])
 
