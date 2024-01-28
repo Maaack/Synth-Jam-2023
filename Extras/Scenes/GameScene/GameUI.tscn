@@ -454,7 +454,7 @@ unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
-text = "Loading MIDI files from your local drive is not availble on the web version."
+text = "Loading Soundfonts and MIDI files from a local drive is not availble on the web version."
 autowrap_mode = 2
 
 [node name="LoadMIDIFileButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
@@ -462,6 +462,12 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 text = "Load MIDI File"
+
+[node name="LoadSoundFontButton" type="Button" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+text = "Load Soundfont"
 
 [node name="LoadedMIDIFileLabel" type="Label" parent="MIDIFilePanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -542,7 +548,7 @@ libraries = {
 }
 autoplay = "FadeOut"
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="MIDIFileDialog" type="FileDialog" parent="."]
 title = "Open a File"
 size = Vector2i(617, 400)
 ok_button_text = "Open"
@@ -550,13 +556,23 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.mid", "*.midi")
 
+[node name="SoundfontFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(617, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.sf2")
+
 [connection signal="changed_tempo" from="GodotMIDIPlayer" to="." method="_on_godot_midi_player_changed_tempo"]
 [connection signal="midi_event" from="GodotMIDIPlayer" to="." method="_on_godot_midi_player_midi_event"]
 [connection signal="timeout" from="CheckMIDIDevicesTimer" to="." method="_on_check_midi_devices_timer_timeout"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadSampleButton" to="." method="_on_load_sample_button_pressed"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadMIDIFileButton" to="." method="_on_load_midi_file_button_pressed"]
+[connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/LoadSoundFontButton" to="." method="_on_load_sound_font_button_pressed"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/StopPauseContainer/StopButton" to="." method="_on_stop_button_pressed"]
 [connection signal="pressed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/StopPauseContainer/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="value_changed" from="MIDIFilePanel/MarginContainer/VBoxContainer/PlayControlContainer/TempoSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="MIDIFileDialog" to="." method="_on_midi_file_dialog_file_selected"]
+[connection signal="file_selected" from="SoundfontFileDialog" to="." method="_on_soundfont_file_dialog_file_selected"]

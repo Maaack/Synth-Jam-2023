@@ -13,6 +13,7 @@ extends Control
 @onready var web_notice = %WebNoticeLabel
 @onready var web_notice_2 = %WebNoticeLabel2
 @onready var load_midi_button = %LoadMIDIFileButton
+@onready var load_soundfont_button = %LoadSoundFontButton
 @onready var loaded_midi_label = %LoadedMIDIFileLabel
 @onready var play_control_container = %PlayControlContainer
 @onready var play_button = %PlayButton
@@ -166,6 +167,7 @@ func _ready():
 		web_notice.show()
 		web_notice_2.show()
 		load_midi_button.hide()
+		load_soundfont_button.hide()
 	else:
 		OS.open_midi_inputs()
 		_detect_MIDI_devices()
@@ -183,9 +185,12 @@ func _update_control_buttons():
 	load_sample_button.visible = !$GodotMIDIPlayer.playing and !sample_midi.is_empty() and $GodotMIDIPlayer.file != sample_midi
 
 func _on_load_midi_file_button_pressed():
-	$FileDialog.popup_centered()
+	$MIDIFileDialog.popup_centered()
 
-func _on_file_dialog_file_selected(path : String):
+func _on_load_sound_font_button_pressed():
+	$SoundfontFileDialog.popup_centered()
+
+func _load_midi_file(path : String):
 	if path == "":
 		loaded_midi_label.visible = false
 		play_button.visible = false
@@ -196,6 +201,17 @@ func _on_file_dialog_file_selected(path : String):
 	loaded_midi_label.text = path.get_file().get_basename()
 	loaded_midi_label.visible = true
 	_update_control_buttons()
+
+func _load_soundfont_file(path : String):
+	if path == "":
+		return
+	$GodotMIDIPlayer.set_soundfont(path)
+
+func _on_midi_file_dialog_file_selected(path):
+	_load_midi_file(path)
+
+func _on_soundfont_file_dialog_file_selected(path):
+	_load_soundfont_file(path)
 
 func _on_play_button_pressed():
 	$GodotMIDIPlayer.play(_paused_at)
